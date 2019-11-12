@@ -1,0 +1,12 @@
+Amantadine|831103|Treats Influenza A and Parkinson's|Phenelzine,Rizatriptan
+Aluminum Hydroxide|153329|Used as an antacid|*
+Desipramine|1099289|Anti-depressant|Rizatriptan
+Ciprofloxin|197511|Antibiotic for treating infections|Isocarboxazid
+Dextromethorphan Polistirex|1373045|Cough medicine|*
+Phenelzine|8123|Anti-depressant|Amantadine
+Rizatriptan|88014|Treats migraine headaches|Desipramine,Amantadine
+Moclobemide|30121|Treatment of social anxiety|*
+Cortisone|329229|Lessen inflammation|*
+Melatonin|1362753|Sleep aid|*
+Acetaminophen|198439|Fever reducer|Ibuprofen
+Isocarboxazid|6011|Treats severe depression|Ciprofloxin
