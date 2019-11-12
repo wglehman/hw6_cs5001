@@ -1,6 +1,6 @@
 Clark Kent|Back pain|Cortisone
 Peter Parker|Depression and Migraines|Desipramine,Rizatriptan
 Bruce Wayne|Insomnia|Melatonin
-Barry Allen|Scraped knee and depression|Ciprofloxin,Isocarboxazid
+Barry Allen|Scraped knee and depression|Ciprofloxin,Isocarboxazid,Dogs
 Diana Prince|Cough and sore throat|Dextromethorphan Polistirex
 Natasha Romanoff|Flu and fever|Amantadine,Acetaminophen
