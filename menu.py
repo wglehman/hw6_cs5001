@@ -21,7 +21,7 @@ def a():
 
 
 def main():
-    handlers = [a, d, a]
+    handlers = [print_vals]
     question = 'blerp? '
     answer, success = menu_with_handlers(question, '123', handlers)
     print(answer, success)

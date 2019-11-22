@@ -1,36 +1,20 @@
-def unpack():
+def get_wordlist():
+    ''' Function get-wordlist
+        Params: nothoing
+        Returns: a list of strings
+        Does: retrieves a list of dictionary words from the built-in
+              unix dictionary, which has been copied over.
+    '''
     try:
-        file = open('wordlist.txt', 'r')
+        infile = open('wordlist.txt', 'r')
+        lines = infile.readlines()
+        infile.close()
+    except OSError:
+        return []
 
-        word_list = []
-
-        for word in file:
-            word_list = eval(word)
-
-        file.close()
-
-        return word_list
-
-    except FileNotFoundError:
-        print('file not found')
-        return
-
-
-def repack(letters_drawn):
-    word_list = unpack()
-
-    for val in letters_drawn:
-        word_list.remove(val)
-
-    try:
-        file_write = open('wordlist_write.txt', 'w')
-
-        file_write.write(str(word_list))
-
-        file_write.close()
-
-        return word_list
-
-    except FileNotFoundError:
-        print('file not found')
-        return
+    for i in range(len(lines)):
+        lines[i] = lines[i].strip('\n')
+        lines[i] = lines[i].upper()
+        if ' ' in lines[i]:
+            lines[i] = lines[i].strip(' ')
+    return lines

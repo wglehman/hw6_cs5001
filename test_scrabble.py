@@ -1,83 +1,106 @@
-import random
-import wordlist
+'''
+    CS5001
+    Fall 2019
+    Test suite -- testing two scrabble functions
+'''
 
-LENGTH = 7
-POINTS = {1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'S', 'T', 'R'],
-          2: ['D', 'G'],
-          3: ['B', 'C', 'M', 'P'],
-          4: ['F', 'H', 'V', 'W', 'Y'],
-          5: ['K'],
-          8: ['J', 'X'],
-          10: ['Q', 'Z']}
+from scrabble_points import bag_of_letters
+from scrabble_points import get_word_value
 
+def test_make_bag(input_freq, expected):
+    ''' Function test_make_bag
+        Input: a dictionary (input to the function), a list of strings
+                (expected output)
+        Returns: True if expected == actual, false otherwise
+    '''
+    print('Testing', input_freq, 'expecting', expected)
+    actual = bag_of_letters(input_freq)
+    if actual == expected:
+        print('...SUCCESS!\n')
+        return True
+    else:
+        print('...FAIL :(\n')
+        return False
 
-def draw():
-    word_list = wordlist.unpack()
-
-    letters = []
-
-    idx = random.sample(range(0, len(word_list) - 1), LENGTH)
-
-    for i in idx:
-        letters += [word_list[i]]
-
-    print(letters)
-
-    wordlist.repack(letters)
-
-    return letters
-
-
-def play(letters):
-    for letter in letters:
-        print(letter + '', end='')
-
-    total_points = []
-
-    word = input('\nWhat\'s your word? ')
-
-    for char in word:
-        if char in letters:
-            total_points += [k for k, v in POINTS.items() if char in v]
-        else:
-            print(char, 'not in the drawn letters. you lose.')
-            return []
-
-    print(sum(total_points))
-    return [word, sum(total_points)]
+def test_word_value(word, values, expected):
+    ''' Function test_word_value
+        Input: a word (string), letter-to-value mapping (dictionary),
+                and the word's expected value (int)
+        Returns: True if expected == actual, false otherwise
+    '''
+    print('Testing', word, 'expecting', expected)
+    actual = get_word_value(word, values)
+    if actual == expected:
+        print('...SUCCESS!\n')
+        return True
+    else:
+        print('...FAIL :(\n')
+        return False
 
 
-def print_words(words):
-    total_points = []
+def run_bag_tests():
+    ''' Function run_bag_tests
+        Input: nothing
+        Returns: an int, number of tests that failed.
+        Does: repeatedly calls test_make_bag on varied inputs,
+              and validates that result is what we expected.
+    '''
+    num_failed = 0
+    if not test_make_bag({'A':1}, ['A']):
+        num_failed += 1
+    if not test_make_bag({}, []):
+        num_failed += 1
+    if not test_make_bag({'A':2}, ['A', 'A']):
+        num_failed += 1
+    if not test_make_bag({'A':1, 'Z':3}, ['A', 'Z', 'Z', 'Z']):
+        num_failed += 1
+    if not test_make_bag({'B':1, 'M':2, 'P':3}, ['B', 'M', 'M', 'P', 'P', 'P']):
+        num_failed += 1
+    if not test_make_bag({'Z':1, 'Y':1, 'X':1}, ['Z', 'Y', 'X']):
+        num_failed += 1
 
-    for i in range(1, len(words), 2):
-        total_points += [words[i]]
+    return num_failed
 
-    print('You have a total of', sum(total_points), 'points so far!')
-
-    for i in range(0, len(words), 2):
-        print(words[i], '--', words[i + 1], 'points')
-
-
-def menu():
-    choice = ''
-    letters = []
-    words = []
-
-    while choice != 'Q':
-        choice = input('D: Draw from bag\n'
-                       'W: Make a word\n'
-                       'P: Print words made so far\n'
-                       'Q: QUIT\n').upper()
-
-        if choice == 'D':
-            letters = draw()
-
-        elif choice == 'W':
-            words += play(letters)
-
-        elif choice == 'P':
-            print_words(words)
+def run_word_tests():
+     ''' Function run_word_tests
+         Input: nothing
+         Returns: an int, number of tests that failed.
+         Does: repeatedly calls test_word_value on varied inputs,
+              and validates that result is what we expected.
+    '''
+     num_failed = 0
+     if not test_word_value('A', {'A':1}, 1):
+         num_failed += 1
+     if not test_word_value('A', {'B':1}, 0):
+         num_failed += 1
+     if not test_word_value('a', {'A':1}, 1):
+         num_failed += 1
+     if not test_word_value('7', {'A':1}, 0):
+         num_failed += 1
+     if not test_word_value('BAT', {'A':1, 'B':2, 'T':2}, 5):
+         num_failed += 1
+     if not test_word_value('AIQY', {'A':1, 'B':2, 'I':1, 'Q':10, 'Y':4}, 16):
+         num_failed += 1
+     return num_failed
 
 
-menu()
+def main():
+    print('Beginning test suite. Testing bag_of_letters first...')
+    fails = run_bag_tests()
+    if fails > 0:
+        print('Something went wrong, pls go back and fix.')
+
+    print('Testing word values...')
+    fails += run_word_tests()
+    if fails > 0:
+        print('Something went wrong, pls go back and fix.')
+
+    if fails == 0:
+        print('ALL TESTS PASSED!!')
+
+main()
+
+
+
+
+        
