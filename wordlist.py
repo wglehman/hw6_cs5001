@@ -1,6 +1,6 @@
 def get_wordlist():
     ''' Function get-wordlist
-        Params: nothoing
+        Params: nothing
         Returns: a list of strings
         Does: retrieves a list of dictionary words from the built-in
               unix dictionary, which has been copied over.
